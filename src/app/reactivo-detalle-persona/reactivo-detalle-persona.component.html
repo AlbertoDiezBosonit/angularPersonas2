@@ -1,0 +1,64 @@
+<form (submit)="submit()" [formGroup]="registerForm">
+    <h2>Datos de la persona</h2>
+    <div class="form-group">
+        <label for="user">Usuario</label>
+        <input type="text" class="form-control" formControlName="user">
+    </div>
+
+    <div class="form-group">
+        <label for="surname">Apellido</label>
+        <input type="text" class="form-control" formControlName="surname">
+    </div>
+
+    <div class="form-group">
+        <label for="password">Constraseña</label>
+        <input type="password" class="form-control" formControlName="password">
+    </div>
+
+    <div class="form-group">
+        <label for="name">Nombre</label>
+        <input type="text" class="form-control" formControlName="name">
+    </div>
+
+    <div class="form-group">
+        <label for="company_email">Email de compañia</label>
+        <input type="email" class="form-control" formControlName="company_email">
+    </div>
+
+    <div class="form-group">
+        <label for="personal_email">Email personal</label>
+        <input type="email" class="form-control" formControlName="personal_email">
+    </div>
+
+    <div class="form-group">
+        <label for="city">Ciudad</label>
+        <input type="text" class="form-control" formControlName="city"> 
+    </div>
+
+    <div class="form-group">
+        <label for="active">Activo</label>
+        <input type="text" class="form-control" formControlName="active">
+    </div>
+
+    <div class="form-group">
+        <label for="created_date">Fecha de creación</label>
+        <input type="date" class="form-control" formControlName="created_date">
+    </div>
+
+    <div class="form-group">
+        <label for="imagen_url">Imagen URL</label>
+        <input type="text" class="form-control" formControlName="imagen_url">
+    </div>
+
+    <div class="form-group">
+        <label for="termination_date">Fecha de terminación</label>
+        <input type="date" class="form-control" formControlName="termination_date">
+    </div>
+
+    <div class="form-group">
+        <button (click)="cancelar()">Cancelar</button>  
+        <button  type="submit" >Envíar</button>
+    </div>
+    
+
+</form>

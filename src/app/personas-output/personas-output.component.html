@@ -1,0 +1,74 @@
+<div class="contenedor_personas_output">
+
+<button (click)="anadir()">Añadir</button>
+
+<form>
+    <input type="text" id="aBuscar"/>
+    <button (click)="buscar()">Buscar por nombre</button>
+</form>
+
+<table mat-table  [dataSource]="personas" id="tablaDatos">
+ 
+    <ng-container matColumnDef="user">
+        <th mat-header-cell *matHeaderCellDef> Usuario </th>
+        <td mat-cell *matCellDef="let personas"> {{personas.user}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let personas"> {{personas.name}} </td>
+      </ng-container>
+    
+      <ng-container matColumnDef="surname">
+        <th mat-header-cell *matHeaderCellDef> Apellido </th>
+        <td mat-cell *matCellDef="let personas"> {{personas.surname}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="company_email">
+        <th mat-header-cell *matHeaderCellDef> Email </th>
+        <td mat-cell *matCellDef="let personas"> {{personas.company_email}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="borrar">
+        <th mat-header-cell *matHeaderCellDef> Borrar </th>
+        <td mat-cell *matCellDef="let j = index;">
+          <button mat-raised-button color="warn" focusable="false" (click)="borrarFila(j)">
+            Borra?
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="modificar">
+        <th mat-header-cell *matHeaderCellDef> Modificar </th>
+        <td mat-cell *matCellDef="let j = index;">
+          <button mat-raised-button color="warn" focusable="false" (click)="modificarFila(j)">
+            Modifica?
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="detalle">
+        <th mat-header-cell *matHeaderCellDef> Detalle </th>
+        <td mat-cell *matCellDef="let j = index;">
+          <button mat-raised-button color="warn" focusable="false" (click)="detalleFila(j)">
+            Detalle?
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+</table>
+
+</div>
+
+<!--
+<ul>
+    <li *ngFor="let p of personas">
+        <p>{{p.user}}</p>
+
+    </li>
+
+</ul>
+ 
+-->

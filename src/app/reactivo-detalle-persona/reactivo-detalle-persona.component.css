@@ -1,0 +1,28 @@
+form{
+    width: 30em;
+}
+
+.form-group{
+    display: flex;
+    justify-content: space-around;
+    padding: 0.3em;
+}
+
+label{
+    flex-grow: 1;
+}
+
+input{
+    
+    text-align: right;
+   
+}
+
+h2{
+    text-align: center;
+}
+
+button{
+    margin-top: 0.9em;
+    padding: 1em;
+}
