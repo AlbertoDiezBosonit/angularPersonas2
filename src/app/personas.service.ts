@@ -45,14 +45,15 @@ export class PersonasService {
   status:string ='';
 
   InsertaPersona(p:PersonaOutput,aux:PersonaOutput,tabla1: MatTable<PersonaOutput[]>,personas : PersonaOutput[]){
-    //alert(this.Url+"/addPersona");
     this.status='';
+    //p.user=''; // con esto generamos un error
     let retorno=this.http.post<PersonaOutput>(this.Url+"/addPersona",p).pipe(
       catchError(this.handleError('addPersona', p))
     )
     .subscribe(data => {
       if(this.status!=''){    
-        alert('Error al insertar la línea');
+        //alert('Error al insertar la línea');
+        alert(this.status);
       }
       else{
         p.id = data.id; // aceptamos la id asignada en la base de datos        
@@ -67,28 +68,29 @@ export class PersonasService {
   ActualizaPersona(p:PersonaOutput, aCambiar : PersonaOutput[],j:number, tabla1: MatTable<PersonaOutput[]>){
     this.status='';
     return this.http.put<PersonaOutput>(this.Url+'/'+p.id,p)
-      .pipe(
-        catchError(this.handleError<PersonaOutput[]>('Error al actualizar la línea', []))
-      )
+      .pipe(        catchError(this.handleError<PersonaOutput[]>('Error al actualizar la línea', []))      )
       .subscribe((data) =>{ 
         if(this.status!=''){
-          alert('Error al actualizar la fila');
+          //alert('Error al actualizar la fila');
+          alert(this.status);
         }
         else{
           aCambiar[j]=p;
           tabla1.renderRows();
           this.messageService.add('Se inserta la persona: '+p.name);
         }
-      });
+      }
+      );
   }
 
   EliminaPersonas(id : string,personas : PersonaOutput[],j:number,tabla1: MatTable<PersonaOutput[]>) {
-    let retorno= this.http.delete(this.Url+'/'+id).pipe(catchError(this.handleError<PersonaOutput>('Error al borrar persona'))).pipe(
-      catchError(this.handleError<PersonaOutput[]>('Error al eliminar la línea', []))
-    )
-    .subscribe( (data:any)=>{ 
+    this.status='';
+    let retorno= this.http.delete(this.Url+'/'+id).pipe(catchError(this.handleError<PersonaOutput>('Error al borrar persona')))
+    //.pipe(      catchError(this.handleError<PersonaOutput[]>('Error al eliminar la línea', []))    )
+    .subscribe( (data)=>{ 
         if(data===undefined){
-          alert("Error al eliminar la fila");
+          //alert("Error al eliminar la fila");
+          alert(this.status);
         }
         else{
           this.messageService.add('Se elimina la persona: '+personas[j].name);
@@ -102,12 +104,19 @@ export class PersonasService {
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
+      //alert(error);
       //alert("error: "+`${operation} failed: ${error.message}`);
       // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
       this.status="error: "+`${operation} failed: ${error.message}`;
+      if(error.error.mensaje!=undefined){
+        //alert(error.error.mensaje);    
+        this.status="El error de la respuesta del servidor es: "+error.error.mensaje;
+      }
+      console.error(error.error.mensaje); // log to console instead
+      
+      
       // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
+      this.log(`${operation} failed: ${error.message} respuesta del servidor: ${error.error.mensaje}`);
   
       // Let the app keep running by returning an empty result.
       return of(result as T);

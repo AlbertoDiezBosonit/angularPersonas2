@@ -61,10 +61,15 @@ export class PersonasOutputComponent implements OnInit {
 
   buscar():void{
     const textoAbuscar = (document.getElementById("aBuscar") as HTMLInputElement).value;
-    this.personasService.getPersonasOutputPorNombre(textoAbuscar)
-      .subscribe(personas => this.personas = personas);
-    this.dataSource.data=this.personas;
-    this.tabla1.renderRows();
+    if(textoAbuscar!=''){
+      this.personasService.getPersonasOutputPorNombre(textoAbuscar)
+        .subscribe(personas => this.personas = personas);
+      this.dataSource.data=this.personas;
+      this.tabla1.renderRows();
+    }
+    else{ // si es una cadena vacía ponemos otra vez todas
+      this.getPersonas();
+    }   
   }
 
   /*

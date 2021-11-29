@@ -47,7 +47,7 @@ export class PersonaDetalleComponent implements OnInit {
   });
   constructor(public dialogRef: MatDialogRef<PersonaDetalleComponent>,
     @ Inject(MAT_DIALOG_DATA) public data: PersonaOutput
-    ,private personasService : PersonasService,private fb: FormBuilder
+    ,private personasService : PersonasService
     ) { 
     } 
 
