@@ -3,7 +3,6 @@ import { BrowserModule, enableDebugTools } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms'; // <-- NgModel lives here
 
 import { AppComponent } from './app.component';
-import { PersonasComponent } from './personas/personas.component';
 import { PersonasInputComponent } from './personas-input/personas-input.component';
 import { PersonasOutputComponent } from './personas-output/personas-output.component';
 import { MatSliderModule } from '@angular/material/slider';
@@ -24,45 +23,52 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MessagesComponent } from './messages/messages.component';
 
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component'
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { BienvenidoComponent } from './bienvenido/bienvenido.component';
 import { MenuComponent } from './menu/menu.component';
+import { MatMenuModule} from '@angular/material/menu';
+import { MatIconModule} from '@angular/material/icon';
+import { RectanglePersonComponent } from './rectangle-person/rectangle-person.component';
+
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'AppComponent'
+    redirectTo: 'bienvenido'
   },
   {
-    path: 'visualizacion_tabla',
+    path: 'bienvenido',
+    component: BienvenidoComponent
+  },
+  {
+    path: 'tabla',
     component: PersonasOutputComponent,
   },
   {
-    path: 'visualizacion_rectangulos',
-    component: DashboardComponent,
+    path: 'rectangulo',
+    component: PersonasInputComponent,
   }
 
 
-];
+]; 
 
  
-
+ 
 @NgModule({
   exports: [
     RouterModule
     ],
   declarations: [
     AppComponent,
-    PersonasComponent,
     PersonasInputComponent,
     PersonasOutputComponent,
     PersonaDetalleComponent,
     ReactivoDetallePersonaComponent,
     MessagesComponent,
     BienvenidoComponent,
-    MenuComponent
+    MenuComponent,
+    RectanglePersonComponent
   ],
   imports: [
     BrowserModule,
@@ -70,8 +76,8 @@ const routes: Routes = [
     AppRoutingModule,
     RouterModule.forRoot(routes, {
       enableTracing: true, // for debug the routes
-      paramsInheritanceStrategy: 'always', // heredar los datos de la ruta padre
-      useHash: true // for server configuration routing
+      paramsInheritanceStrategy: 'always' // heredar los datos de la ruta padre
+      //,useHash: true // for server configuration routing
     }),
     HttpClientModule,
     MatSliderModule,
@@ -89,8 +95,9 @@ const routes: Routes = [
     MatDialogModule,
     FormsModule,
     MatTableModule,
-    ReactiveFormsModule
-  
+    ReactiveFormsModule,
+    MatMenuModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,24 @@
+.contenedor{
+    width:60em;
+    margin: 0 auto;
+    background-color: #333333;
+    color:white;
+}
+
+.elemento{
+    width:17em;
+    margin: 1em;
+    background-color: gray;
+}
+
+.contenedorElementos{
+        display: flex;
+        flex-wrap: wrap;
+        align-content: space-between;
+        background-color: rgb(56, 55, 55);
+        justify-content: left;
+}
+
+h1{
+    margin:1em;
+}

@@ -1,0 +1,21 @@
+.centro{
+    margin: 0px auto;
+    text-align: center;
+    padding: 2em;
+}
+
+div{
+    width:60em;
+    margin: 0 auto;
+    background-color: #333333;
+    color:white;
+}
+
+app-menu{
+    width: 100%;
+    text-align: left;
+}
+
+body{
+    background-color: #333333;
+}

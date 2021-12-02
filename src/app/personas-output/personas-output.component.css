@@ -21,7 +21,18 @@ th.mat-header-cell{
 }
 
 .contenedor_personas_output{
-    width: 60em;
+    width: 50em;
     text-align: center;
     margin: 0 auto;
+    
+}
+
+.contenedor{
+    background-color: #333333;
+    color:white;
+    text-align: left;
+    height:auto;
+    width: 60em;
+    margin: 0 auto;
+    padding-bottom: 2em;
 }

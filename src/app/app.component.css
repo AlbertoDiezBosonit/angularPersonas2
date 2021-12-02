@@ -1,5 +1,10 @@
 div{
-    text-align: center;
     width:60em;
     margin: 0 auto;
+}
+
+app-menu{
+    width: 100%;
+    text-align: left;
+    
 }

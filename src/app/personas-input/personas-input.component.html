@@ -1,1 +1,13 @@
-<p>personas-input works!</p>
+
+<div class="contenedor">
+<app-menu></app-menu>
+
+<div>
+    <h1>Listado de personas</h1><hr>
+    <div class="contenedorElementos">
+        <div class="elemento"   *ngFor="let item of personas">
+            <app-rectangle-person [persona]="item" (borrarEvento)="borrarUsuario($event)" (editarEvento)="editarUsuario($event)"></app-rectangle-person>
+        </div>
+    </div>
+</div>
+</div>

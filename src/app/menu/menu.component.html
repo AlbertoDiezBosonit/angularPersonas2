@@ -1,1 +1,16 @@
-<p>menu works!</p>
+<div>
+
+<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" class="botonPrincipal">
+    <mat-icon>view_headline</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button  (click)="irAtabla()" mat-menu-item>
+      <mat-icon>dialpad</mat-icon>
+      <span>Listar formato tabla</span>
+    </button>
+    <button (click)="irAcomponentes()"  mat-menu-item>
+      <mat-icon>voicemail</mat-icon>
+      <span>Listar formato detalle</span>
+    </button>
+  </mat-menu>
+</div>

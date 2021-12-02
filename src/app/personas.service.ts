@@ -65,7 +65,7 @@ export class PersonasService {
     return retorno;
   }
 
-  ActualizaPersona(p:PersonaOutput, aCambiar : PersonaOutput[],j:number, tabla1: MatTable<PersonaOutput[]>){
+  ActualizaPersona(p:PersonaOutput, aCambiar : PersonaOutput[],j:number, tabla1: MatTable<PersonaOutput[]> | undefined = undefined){
     this.status='';
     return this.http.put<PersonaOutput>(this.Url+'/'+p.id,p)
       .pipe(        catchError(this.handleError<PersonaOutput[]>('Error al actualizar la línea', []))      )
@@ -76,14 +76,15 @@ export class PersonasService {
         }
         else{
           aCambiar[j]=p;
-          tabla1.renderRows();
+          if(tabla1 != undefined)
+            tabla1.renderRows();
           this.messageService.add('Se inserta la persona: '+p.name);
         }
       }
       );
   }
 
-  EliminaPersonas(id : string,personas : PersonaOutput[],j:number,tabla1: MatTable<PersonaOutput[]>) {
+  EliminaPersonas(id : string,personas : PersonaOutput[] = [],j:number = -1,tabla1: MatTable<PersonaOutput[]> | undefined = undefined) {
     this.status='';
     let retorno= this.http.delete(this.Url+'/'+id).pipe(catchError(this.handleError<PersonaOutput>('Error al borrar persona')))
     //.pipe(      catchError(this.handleError<PersonaOutput[]>('Error al eliminar la línea', []))    )
@@ -93,9 +94,15 @@ export class PersonasService {
           alert(this.status);
         }
         else{
-          this.messageService.add('Se elimina la persona: '+personas[j].name);
-          personas.splice(j,1);
-          tabla1.renderRows();        
+          if(j!=-1){
+            this.messageService.add('Se elimina la persona: '+personas[j].name);
+            personas.splice(j,1);
+          }
+          else
+            this.messageService.add('Se elimina a la persona con id: '+id)
+          
+          if(tabla1 != undefined)
+            tabla1.renderRows();        
         }
       }
     );

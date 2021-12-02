@@ -1,0 +1,17 @@
+div{
+    width:16em;
+    margin: 1em;
+    background-color: gray;
+}
+
+p{
+    color:white;
+}
+
+.boton{
+    color:rgb(131, 18, 18);
+    background-color: gray;
+    border-color: gray;
+    
+    margin: 1em;
+}

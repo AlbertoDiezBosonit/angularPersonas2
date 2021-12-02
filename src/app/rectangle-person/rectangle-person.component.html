@@ -1,0 +1,13 @@
+<div>
+
+<h3>{{persona.user}}</h3>
+<p>{{persona.surname}}</p>
+<p><img src="{{persona.imagen_url}}"/></p>
+<p>{{persona.company_email}}</p>
+<p><strong>Ciudad de nacimiento: </strong>{{persona.city}}</p>
+<p><strong>Fecha de nacimiento: </strong>{{persona.created_date}}</p>
+<p>
+    <button class="boton" (click)="editar()"><strong>Editar</strong></button>
+    <button class="boton" (click)="borrar()"><strong>Borrar</strong></button>
+</p>
+</div>

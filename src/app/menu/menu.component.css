@@ -1,0 +1,18 @@
+
+.botonPrincipal{
+    text-align: left;
+    margin: 1em;
+
+}
+
+div{
+    width:60em;
+    margin: 0 auto;
+    height: 5em;
+    background-color: #222;
+}
+
+app-menu{
+    width: 100%;
+    text-align: left;
+}
