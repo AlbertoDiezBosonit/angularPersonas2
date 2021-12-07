@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PersonaOutput } from '../personaOutput';
 import { PersonasService } from '../personas.service';
 import { PersonaDetalleComponent } from '../persona-detalle/persona-detalle.component'
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-personas-input',
@@ -13,6 +14,19 @@ export class PersonasInputComponent implements OnInit {
 
   constructor(private personasService : PersonasService,public dialog: MatDialog) { }
 
+
+  page_size : number = 5;
+  page_number : number = 1;
+  pageSizeOptions = [5,10,20,50,100];
+
+  @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
+
+  handlePage(e: PageEvent){
+    this.page_size = e.pageSize;
+    this.page_number = e.pageIndex + 1;
+  }
+
+
   ngOnInit(): void {
     this.getPersonas();
   }
@@ -22,6 +36,7 @@ export class PersonasInputComponent implements OnInit {
   getPersonas():void{
     this.personasService.getPersonasOutput()
       .subscribe(personas => this.personas = personas);
+    //this.personas.slice(0,this.personas.length/2);
   }
 
   borrarUsuario(evento:PersonaOutput){
