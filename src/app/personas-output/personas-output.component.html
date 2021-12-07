@@ -11,7 +11,19 @@
     <button (click)="buscar()">Buscar por nombre</button>
 </form>
 
-<table mat-table  [dataSource]="personas" id="tablaDatos">
+<mat-paginator [length]="personas.length"
+               [pageSize]="page_size"
+               [pageSizeOptions]="pageSizeOptions"
+               (page)="handlePage($event)"
+               aria-label="Select page" showFirstLastButtons>
+               
+</mat-paginator>
+
+
+
+
+<!--<table mat-table  [dataSource]="personas" id="tablaDatos">-->
+  <table mat-table  [dataSource]="dataSource" id="tablaDatos">
  
     <ng-container matColumnDef="user">
         <th mat-header-cell *matHeaderCellDef> Usuario </th>

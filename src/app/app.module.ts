@@ -29,6 +29,8 @@ import { MenuComponent } from './menu/menu.component';
 import { MatMenuModule} from '@angular/material/menu';
 import { MatIconModule} from '@angular/material/icon';
 import { RectanglePersonComponent } from './rectangle-person/rectangle-person.component';
+import { MatPaginator, MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import { CustomMatPaginatorIntl } from './paginator_es';
 
 
 const routes: Routes = [
@@ -97,9 +99,15 @@ const routes: Routes = [
     MatTableModule,
     ReactiveFormsModule,
     MatMenuModule,
-    MatIconModule
+    MatIconModule,
+    MatPaginatorModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide:MatPaginatorIntl,
+      useClass:CustomMatPaginatorIntl
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

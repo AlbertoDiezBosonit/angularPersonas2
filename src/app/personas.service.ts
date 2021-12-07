@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { ChangeDetectorRef, Injectable } from '@angular/core';
 import { PersonaOutput } from './personaOutput';
 import { Observable, of } from 'rxjs'; // para llamadas asincronas
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
-import { MatTable } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MessageService } from './message.service'; // para ir metiendo los mensajes
 
 @Injectable({
@@ -65,7 +65,8 @@ export class PersonasService {
     return retorno;
   }
 
-  ActualizaPersona(p:PersonaOutput, aCambiar : PersonaOutput[],j:number, tabla1: MatTable<PersonaOutput[]> | undefined = undefined){
+  ActualizaPersona(p:PersonaOutput, aCambiar : PersonaOutput[],j:number, tabla1: MatTable<PersonaOutput[]> | undefined = undefined
+    ,matTable: MatTableDataSource<PersonaOutput> |undefined=undefined,paginator:any=undefined){
     this.status='';
     return this.http.put<PersonaOutput>(this.Url+'/'+p.id,p)
       .pipe(        catchError(this.handleError<PersonaOutput[]>('Error al actualizar la línea', []))      )
@@ -76,6 +77,8 @@ export class PersonasService {
         }
         else{
           aCambiar[j]=p;
+          if(matTable != undefined)
+            matTable.paginator=paginator;
           if(tabla1 != undefined)
             tabla1.renderRows();
           this.messageService.add('Se inserta la persona: '+p.name);
@@ -84,7 +87,8 @@ export class PersonasService {
       );
   }
 
-  EliminaPersonas(id : string,personas : PersonaOutput[] = [],j:number = -1,tabla1: MatTable<PersonaOutput[]> | undefined = undefined) {
+  EliminaPersonas(id : string,personas : PersonaOutput[] = [],j:number = -1,tabla1: MatTable<PersonaOutput[]> | undefined = undefined
+    ,matTable: MatTableDataSource<PersonaOutput> |undefined=undefined,paginator:any=undefined) {
     this.status='';
     let retorno= this.http.delete(this.Url+'/'+id).pipe(catchError(this.handleError<PersonaOutput>('Error al borrar persona')))
     //.pipe(      catchError(this.handleError<PersonaOutput[]>('Error al eliminar la línea', []))    )
@@ -100,9 +104,13 @@ export class PersonasService {
           }
           else
             this.messageService.add('Se elimina a la persona con id: '+id)
-          
-          if(tabla1 != undefined)
-            tabla1.renderRows();        
+            
+          if(matTable != undefined){
+            matTable.paginator=paginator;
+          }
+          if(tabla1 != undefined){
+            tabla1.renderRows();  
+          }      
         }
       }
     );

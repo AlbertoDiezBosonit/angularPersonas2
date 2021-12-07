@@ -1,10 +1,11 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit,ViewChild } from '@angular/core';
 import { PersonaOutput } from '../personaOutput';
 import { PersonasService } from '../personas.service';
 import { MatTable } from '@angular/material/table';
 import { MatTableDataSource } from '@angular/material/table';
 import { PersonaDetalleComponent } from '../persona-detalle/persona-detalle.component'
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 
 @Component({
@@ -14,12 +15,23 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class PersonasOutputComponent implements OnInit {
 
+  page_size : number = 5;
+  page_number : number = 1;
+  pageSizeOptions = [5,10,20,50,100];
+
+  handlePage(e: PageEvent){
+    this.page_size = e.pageSize;
+    this.page_number = e.pageIndex + 1;
+  }
+
+
   constructor(private personasService : PersonasService,public dialog: MatDialog) { }
 
   dataSource = new MatTableDataSource<PersonaOutput>();
 
   ngOnInit(): void {
     this.getPersonas(); // es el lugar indicado de inicializarlo
+    
   }
 
   columnsToDisplay: string[]  = ['user', 'name','surname','company_email','borrar','modificar','detalle'];
@@ -27,9 +39,21 @@ export class PersonasOutputComponent implements OnInit {
   @ViewChild(MatTable)
   tabla1!: MatTable<PersonaOutput[]>;
 
+  @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
+  
+
   getPersonas():void{
     this.personasService.getPersonasOutput()
-      .subscribe(personas => this.personas = personas);
+      .subscribe(personas => {
+        this.personas = personas;
+        this.dataSource = new MatTableDataSource<PersonaOutput>(this.personas);
+        this.dataSource.paginator=this.paginator;
+
+
+        /*this.personas=[];
+        for(let i=this.page_size*this.page_number;i<((this.page_size+1)*this.page_number);i++) 
+          this.personas.push(personas[i]);*/
+      });
   }
 
   anadir():void{
@@ -72,16 +96,19 @@ export class PersonasOutputComponent implements OnInit {
     }   
   }
 
-  /*
-  recarga(){
+  
+  /*recarga(){
+    alert("se recarga");
     this.getPersonas();
     this.tabla1.renderRows();
-
   }*/
 
+
   borrarFila(j:number){
+    let aBorrar=this.dataSource.data[j];
+    j=this.personas.indexOf(aBorrar);
     if (confirm("Realmente quiere borrarlo?")) {
-        this.personasService.EliminaPersonas(this.personas[j].id,this.personas,j,this.tabla1);
+        this.personasService.EliminaPersonas(/*this.personas[j].id*/aBorrar.id,this.personas,j,this.tabla1,this.dataSource,this.paginator);
     }
   }
 
@@ -91,7 +118,7 @@ export class PersonasOutputComponent implements OnInit {
     let dialogo1 = this.dialog.open(PersonaDetalleComponent,{data: aux});
     dialogo1.afterClosed().subscribe(data => {
       if (data != undefined){ // se le da a cancelar o no
-        this.personasService.ActualizaPersona(data,this.personas,j,this.tabla1);
+        this.personasService.ActualizaPersona(data,this.personas,j,this.tabla1,this.dataSource,this.paginator);
       }
     });
   }

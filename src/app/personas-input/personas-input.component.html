@@ -3,9 +3,19 @@
 <app-menu></app-menu>
 
 <div>
+
+
     <h1>Listado de personas</h1><hr>
+
+    <mat-paginator [length]="personas.length"
+    [pageSize]="page_size"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="handlePage($event)"
+    aria-label="Select page" showFirstLastButtons>
+</mat-paginator>
+
     <div class="contenedorElementos">
-        <div class="elemento"   *ngFor="let item of personas">
+        <div class="elemento"   *ngFor="let item of personas.slice(page_size*(page_number-1),page_size*page_number); " >
             <app-rectangle-person [persona]="item" (borrarEvento)="borrarUsuario($event)" (editarEvento)="editarUsuario($event)"></app-rectangle-person>
         </div>
     </div>
