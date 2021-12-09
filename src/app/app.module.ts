@@ -14,9 +14,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { PersonaDetalleComponent } from './persona-detalle/persona-detalle.component';
 
- 
-
-
 import { MatDialogModule } from '@angular/material/dialog';
 import { ReactivoDetallePersonaComponent } from './reactivo-detalle-persona/reactivo-detalle-persona.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -29,15 +26,17 @@ import { MenuComponent } from './menu/menu.component';
 import { MatMenuModule} from '@angular/material/menu';
 import { MatIconModule} from '@angular/material/icon';
 import { RectanglePersonComponent } from './rectangle-person/rectangle-person.component';
-import { MatPaginator, MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { CustomMatPaginatorIntl } from './paginator_es';
+import { TablaComponent } from './tabla/tabla.component';
+
 
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'bienvenido'
+    redirectTo: 'bienvenido'  
   },
   {
     path: 'bienvenido',
@@ -45,14 +44,15 @@ const routes: Routes = [
   },
   {
     path: 'tabla',
-    component: PersonasOutputComponent,
+    component : TablaComponent
+    //loadChildren: () => import('./battle/battle.module#BattleModule').then(m => m.OrdersModule)
   },
   {
     path: 'rectangulo',
     component: PersonasInputComponent,
-  }
-
-
+  },
+  { path: 'customers', loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule) },
+  { path: 'orders', loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule) }
 ]; 
 
  
