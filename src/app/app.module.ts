@@ -29,6 +29,7 @@ import { RectanglePersonComponent } from './rectangle-person/rectangle-person.co
 import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { CustomMatPaginatorIntl } from './paginator_es';
 import { TablaComponent } from './tabla/tabla.component';
+import { CheckloginGuard } from './shared/guards/checklogin.guard';
 
 
 
@@ -45,14 +46,15 @@ const routes: Routes = [
   {
     path: 'tabla',
     component : TablaComponent
-    //loadChildren: () => import('./battle/battle.module#BattleModule').then(m => m.OrdersModule)
+    
   },
   {
     path: 'rectangulo',
     component: PersonasInputComponent,
   },
   { path: 'customers', loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule) },
-  { path: 'orders', loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule) }
+  { path: 'orders', loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule) 
+    ,canActivate:[CheckloginGuard]}
 ]; 
 
  
