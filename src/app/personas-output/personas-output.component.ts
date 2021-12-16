@@ -36,6 +36,7 @@ export class PersonasOutputComponent implements OnInit {
 
   columnsToDisplay: string[]  = ['user', 'name','surname','company_email','borrar','modificar','detalle'];
   personas : PersonaOutput[]=[];
+  personasAux : PersonaOutput[]=[];
   @ViewChild(MatTable)
   tabla1!: MatTable<PersonaOutput[]>;
 
@@ -46,6 +47,7 @@ export class PersonasOutputComponent implements OnInit {
     this.personasService.getPersonasOutput()
       .subscribe(personas => {
         this.personas = personas;
+        this.personasAux=this.personas.slice(0);
         this.dataSource = new MatTableDataSource<PersonaOutput>(this.personas);
         this.dataSource.paginator=this.paginator;
 
@@ -54,6 +56,7 @@ export class PersonasOutputComponent implements OnInit {
         for(let i=this.page_size*this.page_number;i<((this.page_size+1)*this.page_number);i++) 
           this.personas.push(personas[i]);*/
       });
+   
   }
 
   anadir():void{
@@ -129,6 +132,36 @@ export class PersonasOutputComponent implements OnInit {
     let dialogo1 = this.dialog.open(PersonaDetalleComponent,{data: aux});
   }
 
+  
+
+  alerta(mensaje:string){
+    if(mensaje==Campo.USUARIO)
+      alert(mensaje);
+  }
 
 
+
+  filter(evento:string){
+    //alert('Se va a buscar: '+evento);
+    this.personas=[...this.personasAux];
+//    alert(this.personas.length);
+    if(evento!=''){
+      this.personas= this.personas.filter((p: PersonaOutput)=>{
+        return(p.name.toLowerCase().indexOf(evento.toLowerCase())>-1);
+      });
+    }
+    this.dataSource.data=this.personas;
+    this.tabla1.renderRows();
+
+  }
+
+
+
+}
+
+enum Campo {
+  USUARIO='usuario',
+  NOMBRE='nombre',
+  APELLIDO='apellido',
+  EMAIL='email',
 }

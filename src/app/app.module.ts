@@ -30,6 +30,10 @@ import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginato
 import { CustomMatPaginatorIntl } from './paginator_es';
 import { TablaComponent } from './tabla/tabla.component';
 import { CheckloginGuard } from './shared/guards/checklogin.guard';
+import { Shared2Component } from './shared2/shared2.component';
+import { CapitalizepipePipe } from './capitalizepipe.pipe';
+import { FiltroFrontComponent } from './filtro-front/filtro-front.component';
+
 
 
 
@@ -72,7 +76,10 @@ const routes: Routes = [
     MessagesComponent,
     BienvenidoComponent,
     MenuComponent,
-    RectanglePersonComponent
+    RectanglePersonComponent,
+    Shared2Component,
+    CapitalizepipePipe,
+    FiltroFrontComponent
   ],
   imports: [
     BrowserModule,

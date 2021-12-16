@@ -14,7 +14,6 @@ export class PersonasInputComponent implements OnInit {
 
   constructor(private personasService : PersonasService,public dialog: MatDialog) { }
 
-
   page_size : number = 5;
   page_number : number = 1;
   pageSizeOptions = [5,10,20,50,100];
@@ -25,7 +24,6 @@ export class PersonasInputComponent implements OnInit {
     this.page_size = e.pageSize;
     this.page_number = e.pageIndex + 1;
   }
-
 
   ngOnInit(): void {
     this.getPersonas();

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { PersonaOutput } from '../personaOutput';
-import { PersonasOutputComponent } from '../personas-output/personas-output.component';
+
 
 @Component({
   selector: 'app-rectangle-person',
@@ -12,10 +12,11 @@ export class RectanglePersonComponent implements OnInit {
 
   constructor() { }
 
-  @Input('persona')
+  @Input('persona') // le introducimos esta desde el padre desde el html
   persona!:PersonaOutput;
 
-  @Output() borrarEvento = new EventEmitter<PersonaOutput>();
+  // generamos eventos para mandarselo al padre, el padre es el padre en el DOM del html
+  @Output() borrarEvento = new EventEmitter<PersonaOutput>(); 
   @Output() editarEvento = new EventEmitter<PersonaOutput>();
 
   ngOnInit(): void {
