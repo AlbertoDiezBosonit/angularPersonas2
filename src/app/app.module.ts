@@ -50,7 +50,6 @@ const routes: Routes = [
   {
     path: 'tabla',
     component : TablaComponent
-    
   },
   {
     path: 'rectangulo',

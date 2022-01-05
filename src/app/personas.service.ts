@@ -10,7 +10,10 @@ import { MessageService } from './message.service'; // para ir metiendo los mens
   providedIn: 'root'
 })
 export class PersonasService {
-  private Url = 'http://localhost:8080/persona';  // URL to web api
+  //private Url = 'http://localhost:8080/persona';  // URL to web api
+  
+  
+  private Url = 'http://localhost:3000/api/personas';  // URL to web api
   private editable:boolean=true;
 
   constructor( private http: HttpClient,private messageService: MessageService) { }
@@ -24,12 +27,27 @@ export class PersonasService {
   }
 
   getPersonasOutput(): Observable< PersonaOutput[]> {
-    let retorno=this.http.get<PersonaOutput[]>(this.Url)
+    let retorno : Observable< PersonaOutput[]>;
+    /*
+    let retorno2:Observable<any[]>;
+    retorno2=this.http.get<any[]>(this.Url, 
+      )
+    .pipe( // esto es para la gestion de errores
+      //catchError(this.handleError<PersonaOutput[]>('getHeroes', []))
+    );// luego queda hacer el suscribe
+    
+
+    console.log("Datos sin convertir: ");
+    retorno2.subscribe(data=>{console.log(data);})*/
+    //retorno.subscribe(ps => {alert(personas );personas = ps; alert(personas ); tabla1.renderRows();});
+    retorno=this.http.get<PersonaOutput[]>(this.Url, 
+      )
     .pipe( // esto es para la gestion de errores
       catchError(this.handleError<PersonaOutput[]>('getHeroes', []))
     );// luego queda hacer el suscribe
-    //retorno.subscribe(ps => {alert(personas );personas = ps; alert(personas ); tabla1.renderRows();});
+
     this.messageService.add('Personas leidas');
+      
     return retorno;
   }
 
@@ -48,6 +66,7 @@ export class PersonasService {
     this.status='';
     //p.user=''; // con esto generamos un error
     let retorno=this.http.post<PersonaOutput>(this.Url+"/addPersona",p).pipe(
+      //let retorno=this.http.post<PersonaOutput>(this.Url,p).pipe(
       catchError(this.handleError('addPersona', p))
     )
     .subscribe(data => {
@@ -124,7 +143,7 @@ export class PersonasService {
       // TODO: send the error to remote logging infrastructure
       this.status="error: "+`${operation} failed: ${error.message}`;
       if(error.error.mensaje!=undefined){
-        //alert(error.error.mensaje);    
+        alert(error.error.mensaje);    
         this.status="El error de la respuesta del servidor es: "+error.error.mensaje;
       }
       console.error(error.error.mensaje); // log to console instead

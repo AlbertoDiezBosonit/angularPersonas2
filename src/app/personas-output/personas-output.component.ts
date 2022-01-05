@@ -34,7 +34,7 @@ export class PersonasOutputComponent implements OnInit {
     
   }
 
-  columnsToDisplay: string[]  = ['user', 'name','surname','company_email','borrar','modificar','detalle'];
+  columnsToDisplay: string[]  = ['name', 'user','surname','company_email','borrar','modificar','detalle'];
   personas : PersonaOutput[]=[];
   personasAux : PersonaOutput[]=[];
   @ViewChild(MatTable)
@@ -47,11 +47,15 @@ export class PersonasOutputComponent implements OnInit {
     this.personasService.getPersonasOutput()
       .subscribe(personas => {
         this.personas = personas;
+        console.log('aqu');
+        console.log(personas); // no hay nada
+        console.log('aqu');
+
         this.personasAux=this.personas.slice(0);
         this.dataSource = new MatTableDataSource<PersonaOutput>(this.personas);
         this.dataSource.paginator=this.paginator;
 
-
+    
         /*this.personas=[];
         for(let i=this.page_size*this.page_number;i<((this.page_size+1)*this.page_number);i++) 
           this.personas.push(personas[i]);*/
