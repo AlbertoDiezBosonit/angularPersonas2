@@ -33,7 +33,18 @@ export class PersonasInputComponent implements OnInit {
 
   getPersonas():void{
     this.personasService.getPersonasOutput()
-      .subscribe(personas => this.personas = personas);
+      .subscribe(personas =>{ 
+        if(personas.length == undefined){
+          // es un objeto, hay que buscar 
+          this.personas = personas.result;
+        }
+        else{
+          // es un array
+          this.personas=personas;
+        }
+
+//        this.personas = personas;
+      });
     //this.personas.slice(0,this.personas.length/2);
   }
 

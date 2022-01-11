@@ -20,7 +20,7 @@ export class MenuComponent implements OnInit {
     //console.log(this.trigger);
     this.trigger.openMenu();
   }
-
+/*
   irAtabla(){
     //alert("aqui");
     // now it is time to go to table view
@@ -30,5 +30,5 @@ export class MenuComponent implements OnInit {
   irAcomponentes(){
     this.router.navigateByUrl('rectangulo');
   }
-
+*/
 }

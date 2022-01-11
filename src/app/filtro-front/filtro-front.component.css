@@ -7,3 +7,8 @@ label,input{
     text-align: left;
     margin: 3%;
 }
+
+.mat-input-element{
+    color:black;
+    background-color: white;
+}

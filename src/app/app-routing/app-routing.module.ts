@@ -6,7 +6,7 @@ import { PersonasInputComponent } from '../personas-input/personas-input.compone
 
 import { BienvenidoComponent } from '../bienvenido/bienvenido.component';
 
-
+// este es el routes que funciona
 const routes: Routes = [
   {
     path: '',

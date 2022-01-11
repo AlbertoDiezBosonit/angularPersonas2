@@ -36,7 +36,7 @@ import { FiltroFrontComponent } from './filtro-front/filtro-front.component';
 
 
 
-
+// el routes que funciona esta en app-routing.module.ts
 const routes: Routes = [
   {
     path: '',
@@ -49,7 +49,7 @@ const routes: Routes = [
   },
   {
     path: 'tabla',
-    component : TablaComponent
+    component : PersonasOutputComponent
   },
   {
     path: 'rectangulo',

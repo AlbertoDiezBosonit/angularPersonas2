@@ -26,10 +26,11 @@ export class PersonasService {
     this.editable=editable;
   }
 
-  getPersonasOutput(): Observable< PersonaOutput[]> {
+  getPersonasOutput(): Observable</* PersonaOutput[]*/any> {
     let retorno : Observable< PersonaOutput[]>;
     /*
     let retorno2:Observable<any[]>;
+
     retorno2=this.http.get<any[]>(this.Url, 
       )
     .pipe( // esto es para la gestion de errores
@@ -40,7 +41,7 @@ export class PersonasService {
     console.log("Datos sin convertir: ");
     retorno2.subscribe(data=>{console.log(data);})*/
     //retorno.subscribe(ps => {alert(personas );personas = ps; alert(personas ); tabla1.renderRows();});
-    retorno=this.http.get<PersonaOutput[]>(this.Url, 
+    retorno=this.http.get</*PersonaOutput[]*/any>(this.Url, 
       )
     .pipe( // esto es para la gestion de errores
       catchError(this.handleError<PersonaOutput[]>('getHeroes', []))
