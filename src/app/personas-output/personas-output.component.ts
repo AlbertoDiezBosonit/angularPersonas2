@@ -46,19 +46,17 @@ export class PersonasOutputComponent implements OnInit {
   getPersonas():void{
     this.personasService.getPersonasOutput()
       .subscribe(personas => {
-        this.personas = personas;
-        console.log('aqu');
-        console.log(personas); // no hay nada
-        console.log('aqu');
-
+        if(personas.length == undefined){
+          // es un objeto, hay que buscar 
+          this.personas = personas.result;
+        }
+        else{
+          // es un array
+          this.personas=personas;
+        }
         this.personasAux=this.personas.slice(0);
         this.dataSource = new MatTableDataSource<PersonaOutput>(this.personas);
         this.dataSource.paginator=this.paginator;
-
-    
-        /*this.personas=[];
-        for(let i=this.page_size*this.page_number;i<((this.page_size+1)*this.page_number);i++) 
-          this.personas.push(personas[i]);*/
       });
    
   }
